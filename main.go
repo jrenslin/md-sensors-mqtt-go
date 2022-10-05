@@ -86,6 +86,9 @@ func createClientOptions(clientId string) *mqtt.ClientOptions {
 
 func submit() {
 
+    // Wait for some time, to surely capture latest humidity
+    time.Sleep(8 * time.Second)
+
     toSubmit := map[int]submissionFormat{}
 
     // Humidity

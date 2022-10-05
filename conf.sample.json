@@ -3,7 +3,7 @@
     "mqtt_port" : "1883",
     "mqtt_username" : "user",
     "mqtt_password" : "password",
-    "musdb_endpoint" : "https://sandkasten.museum-digital.de/musdb/remote/space_sensors/?token_id=5000000&token=adsfadsfa",
+    "musdb_endpoint" : "https://hessen.museum-digital.de/musdb/remote/space_sensors/?token_id=5000000&token=adsfadsfa",
     "submit_after_entries" : 3,
     "channels_to_space_ids" : {
         "shellies/shellyht-00681A/sensor/temperature": 19,
