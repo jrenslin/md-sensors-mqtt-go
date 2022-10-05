@@ -151,7 +151,8 @@ func submit() {
     resp, err := http.PostForm(configuration.MusdbEndpoint, data)
 
     if err != nil {
-        log.Fatal(err)
+        fmt.Println("Failed to submit to server")
+        return
     }
 
     var res map[string]interface{}
@@ -184,7 +185,7 @@ func listen(topic string) {
                         Time: now,
                     })
                 } else {
-                    panic("Unknown space: " + msg.Topic() + ". Enter the combination of topic and target space ID in the configuration file")
+                    log.Fatal("Unknown space: " + msg.Topic() + ". Enter the combination of topic and target space ID in the configuration file")
                 }
 
                 if len(sensorLogTmp) + len(sensorLogHum) > configuration.SubmitAfterEntries {
@@ -207,7 +208,7 @@ func listen(topic string) {
                         Time: now,
                     })
                 } else {
-                    panic("Unknown space: " + msg.Topic() + ". Enter the combination of topic and target space ID in the configuration file")
+                    log.Fatal("Unknown space: " + msg.Topic() + ". Enter the combination of topic and target space ID in the configuration file")
                 }
 
             }
