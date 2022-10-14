@@ -4,6 +4,7 @@
     "mqtt_username" : "user",
     "mqtt_password" : "password",
     "musdb_endpoint" : "https://hessen.museum-digital.de/musdb/remote/space_sensors/?token_id=5000000&token=adsfadsfa",
+    "user_agent" : "Sensors @ museum (Museumsname hier eingeben)",
     "submit_after_entries" : 3,
     "channels_to_space_ids" : {
         "shellies/shellyht-00681A/sensor/temperature": 19,

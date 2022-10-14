@@ -26,6 +26,7 @@ type Configuration struct {
     MqttUsername string `json:"mqtt_username"`
     MqttPasswort string `json:"mqtt_password"`
     MusdbEndpoint string `json:"musdb_endpoint"`
+    UserAgent string `json:"user_agent"`
     SubmitAfterEntries int `json:"submit_after_entries"`
     ChannelsToSpaceIds map[string]int `json:"channels_to_space_ids"`
 }
@@ -113,17 +114,34 @@ func submitToServer(toSubmit map[int]submissionFormat) {
         "log": {string(bs)},
     }
 
-    resp, err := http.PostForm(configuration.MusdbEndpoint, data)
+    netClient := &http.Client{
+        Timeout: time.Second * 30,
+    }
 
+    // resp, err := netClient.PostForm(, data)
+
+    req, err := http.NewRequest("POST", configuration.MusdbEndpoint, strings.NewReader(data.Encode()))
     if err != nil {
-        fmt.Println("Failed to submit to server")
+        fmt.Println("Failed to set up request. Error:")
+        fmt.Println(err)
         return
     }
+    req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+    req.Header.Set("User-Agent", "md-mqtt-client-go (" + configuration.UserAgent + ")")
+
+    resp, err := netClient.Do(req)
+    if err != nil {
+        fmt.Println("Failed to submit to server. Error:")
+        fmt.Println(err)
+        return
+    }
+
+    defer resp.Body.Close()
 
     var res map[string]interface{}
     json.NewDecoder(resp.Body).Decode(&res)
     fmt.Println("Server response:")
-    fmt.Println(res["form"])
+    fmt.Println(res)
 
 }
 
