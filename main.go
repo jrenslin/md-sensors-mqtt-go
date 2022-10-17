@@ -136,7 +136,11 @@ func submitToServer(toSubmit map[int]submissionFormat) {
         return
     }
 
-    defer resp.Body.Close()
+    if resp != nil {
+        defer resp.Body.Close()
+    }
+
+    // defer resp.Body.Close()
 
     var res map[string]interface{}
     json.NewDecoder(resp.Body).Decode(&res)
